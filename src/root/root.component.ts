@@ -8,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './root.component.css'
 })
 export class RootComponent {
-
+  title: string = 'titolo prova';
+  pagina: string='';
+  inserimento(){
+    this.pagina = 'inserimento';
+    console.log(this.pagina);
+  }
 }
