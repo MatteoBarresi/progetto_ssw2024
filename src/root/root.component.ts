@@ -18,10 +18,7 @@ import { Archivio } from './archivio';
 export class RootComponent implements OnInit{
   title: string = 'titolo prova';
   pagina: string='iniziale';
-  
-  inserimento(){
-    this.pagina = 'inserimento';
-  }
+
   cambioPagina(stato:string){
     this.pagina = stato
   }

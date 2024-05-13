@@ -1,7 +1,7 @@
 <h3>{{title}}</h3>
 
 <div *ngIf="pagina=='iniziale'">
-    <button (click)="inserimento()"> inserimento </button>    
+    <button (click)="cambioPagina('inserimento')"> inserimento </button>    
 </div>
 <app-inserimento [pagina]="pagina" (eventoCambio) = "cambioPagina($event)"></app-inserimento>
 

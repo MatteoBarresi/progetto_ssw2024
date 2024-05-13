@@ -19,6 +19,7 @@ export class InserimentoComponent implements OnInit {
     this.pagina = 'iniziale';
     this.eventoCambio.emit(this.pagina)
   }
+
 /*
   comunica(){
     this.eventoProva.emit("stampa sta cosa");
