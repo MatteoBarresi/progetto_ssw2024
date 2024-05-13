@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-inserimento',
@@ -11,8 +11,12 @@ import { Component, OnInit, Input } from '@angular/core';
 export class InserimentoComponent implements OnInit {
   
   @Input() pagina: string;
-
+  @Output() eventoProva = new EventEmitter<any>();
   constructor(){}
   ngOnInit() {}
+
+  comunica(){
+    this.eventoProva.emit("stampa sta cosa");
+  }
 
 }

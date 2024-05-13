@@ -9,12 +9,8 @@ import { ajax, AjaxResponse, AjaxRequest, AjaxError } from 'rxjs/ajax';
   providedIn: 'root'
 })
 export class ArchivioService {
-
-  //parametri: 
-  //key db remoto
-  key:string = 'cda4fc29';
-  //url db remoto
-  base:string = 'https://eu-central-1.aws.data.mongodb-api.com/app/kvaas-giwjg/endpoint';
+  key:string = 'cda4fc29'; //key db remoto
+  base:string = 'https://eu-central-1.aws.data.mongodb-api.com/app/kvaas-giwjg/endpoint'; //url db remoto
   
   
   //mock
@@ -26,7 +22,7 @@ export class ArchivioService {
   
   //funzioni per interagire con il db remoto: set e get (Observable)
 
-  //ottiene tutta la collezione sul db remoto
+  //ottiene tutta la collezione dal db remoto
     public getData() : Observable<AjaxResponse<any>>{ //parsare ulteriormente??
       return ajax({
         method: 'GET',
