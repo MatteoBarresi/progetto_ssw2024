@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, VERSION } from '@angular/core';
+import {CommonModule } from '@angular/common';
+import { bootstrapApplication } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './root.component.html',
   styleUrl: './root.component.css'
 })
@@ -12,6 +14,5 @@ export class RootComponent {
   pagina: string='';
   inserimento(){
     this.pagina = 'inserimento';
-    console.log(this.pagina);
   }
 }
