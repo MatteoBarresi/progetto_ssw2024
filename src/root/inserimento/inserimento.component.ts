@@ -11,12 +11,17 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 export class InserimentoComponent implements OnInit {
   
   @Input() pagina: string;
-  @Output() eventoProva = new EventEmitter<any>();
+  @Output() eventoCambio = new EventEmitter<string>();
   constructor(){}
   ngOnInit() {}
-
+  
+  toggleInserisci(){
+    this.pagina = 'iniziale';
+    this.eventoCambio.emit(this.pagina)
+  }
+/*
   comunica(){
     this.eventoProva.emit("stampa sta cosa");
-  }
+  }*/
 
 }

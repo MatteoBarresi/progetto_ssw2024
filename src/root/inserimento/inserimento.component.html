@@ -1,6 +1,18 @@
 <div *ngIf="pagina == 'inserimento'">
-    <p>autore</p> 
-    <input type ="text" id = "ins">
+    <div>
+        Autore
+        <input type ="text" id ="campoAutore">
+        <br/>
+        Titolo
+        <input type ="text" id ="campoTitolo">
+        <br/>
+        Posizione
+        <input type ="text" id ="campoPosizione">
+        <br/>
+        Nominativo
+        <input type ="text" id ="campoNominativo">
+    </div> 
     <br/>
-    <button (click)="comunica()">provaGet</button>
+    <button>Inserisci</button>
+    <button (click)="toggleInserisci()">Esci</button>
 </div>

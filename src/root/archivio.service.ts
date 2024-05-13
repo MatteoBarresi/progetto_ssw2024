@@ -12,12 +12,6 @@ export class ArchivioService {
   key:string = 'cda4fc29'; //key db remoto
   base:string = 'https://eu-central-1.aws.data.mongodb-api.com/app/kvaas-giwjg/endpoint'; //url db remoto
   
-  
-  //mock
-  /*archivio:Archivio = new Archivio([
-    new Libro("Dante Alighieri","Divina Commedia","a0",""),
-    new Libro("Alessandro Manzoni","Promessi Sposi","c1","")]);
-    */
   constructor() { }
   
   //funzioni per interagire con il db remoto: set e get (Observable)
@@ -31,9 +25,13 @@ export class ArchivioService {
       });
 
     }
-/*
+
     public setData(): Observable<AjaxResponse<any>>{
-      return
+      return ajax({
+        method: 'POST',
+        url: this.base + '/set' + '?key=' + this.key,
+        crossDomain: true,
+      });
     }
-*/
+
 }

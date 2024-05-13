@@ -22,19 +22,16 @@ export class RootComponent implements OnInit{
   inserimento(){
     this.pagina = 'inserimento';
   }
+  cambioPagina(stato:string){
+    this.pagina = stato
+  }
+  /*
   stampaCollezione(){
     this.archiveService.getData().subscribe({
-      next: (x: AjaxResponse<any>) => {
-        //const db = JSON.parse(x.response);
-        console.log(x.response);
-         //creazione oggetti
-    /*    let libri = db.map( (item, i)=> new Libro(db[i].autore, db[i].titolo, db[i].posizione, db[i].nominativo) );
-        let archivio = new Archivio(libri);
-        console.log(archivio)*/
-      },
+      next: (x: AjaxResponse<any>) => console.log(x),
       error: ()=>console.error("asd")
     });
-  }
+  }*/
   
   constructor(private archiveService: ArchivioService) {}
 

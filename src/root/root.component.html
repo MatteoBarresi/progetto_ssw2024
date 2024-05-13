@@ -3,6 +3,6 @@
 <div *ngIf="pagina=='iniziale'">
     <button (click)="inserimento()"> inserimento </button>    
 </div>
-<app-inserimento [pagina]="pagina" (eventoProva)="stampaCollezione()"></app-inserimento>
+<app-inserimento [pagina]="pagina" (eventoCambio) = "cambioPagina($event)"></app-inserimento>
 
 
