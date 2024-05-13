@@ -26,11 +26,12 @@ export class ArchivioService {
 
     }
 
-    public setData(): Observable<AjaxResponse<any>>{
+    public setData(jsonstring :string): Observable<AjaxResponse<any>>{
       return ajax({
         method: 'POST',
         url: this.base + '/set' + '?key=' + this.key,
         crossDomain: true,
+        body: jsonstring
       });
     }
 
