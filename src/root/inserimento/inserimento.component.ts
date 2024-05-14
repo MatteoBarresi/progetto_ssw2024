@@ -18,7 +18,6 @@ export class InserimentoComponent implements OnInit {
   
   @Input() pagina: string;
   @Output() eventoCambio = new EventEmitter<string>();
- // @Output() eventoCampi = new EventEmitter<string[]>();
 
   archivio : Archivio = new Archivio([]);
 
@@ -39,7 +38,7 @@ export class InserimentoComponent implements OnInit {
       {
         next: (x:AjaxResponse<any>)=> {
           const collezione = (JSON.parse(x.response));
-          collezione.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],item['posizione'],item['nominativo'])))
+          collezione.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],item['posizione'],"")))
           console.log("archivio appena ottenuto " + this.archivio.collezione);
           this.archivio.collezione.map((item)=> console.log(item));
         },
@@ -50,10 +49,7 @@ export class InserimentoComponent implements OnInit {
   }
 
   checkCampiVuoti(campi:HTMLCollectionOf<HTMLInputElement>): boolean{
-    //controlla che i campi autore, titolo e posizione non siano vuoti
-    if(campi['campoAutore'].value && campi['campoTitolo'].value && campi['campoPosizione'].value !== '')
-      return true; 
-    else return false; 
+    return Array.from(campi).every((item)=>item.value !=='');
   }
   
 
@@ -74,7 +70,7 @@ export class InserimentoComponent implements OnInit {
     //console.log(campi);
     if(!this.checkCampiVuoti(campi))
     {
-      console.log('Riempire i campi obbligatori');
+      console.log('Riempire i campi vuoti');
     }else{
       
       //Array.from(campi).map((item)=> valori.push(item.value)); //mette le stringhe in un array[]<string>

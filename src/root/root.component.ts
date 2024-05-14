@@ -22,13 +22,6 @@ export class RootComponent implements OnInit{
   cambioPagina(stato:string){
     this.pagina = stato
   }
-  /*
-  stampaCollezione(){
-    this.archiveService.getData().subscribe({
-      next: (x: AjaxResponse<any>) => console.log(x),
-      error: ()=>console.error("asd")
-    });
-  }*/
 
   
   constructor(private archiveService: ArchivioService) {}
