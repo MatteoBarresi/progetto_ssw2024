@@ -6,17 +6,17 @@ import { ArchivioService } from './archivio.service';
 import { AjaxResponse } from 'rxjs/ajax';
 import { Libro } from './libro';
 import { Archivio } from './archivio';
+import { RicercaComponent } from './ricerca/ricerca.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, InserimentoComponent],
+  imports: [CommonModule, InserimentoComponent, RicercaComponent],
   providers: [ArchivioService],
   templateUrl: './root.component.html',
   styleUrl: './root.component.css'
 })
 export class RootComponent implements OnInit{
-  title: string = 'titolo prova';
   pagina: string='iniziale';
 
   cambioPagina(stato:string){

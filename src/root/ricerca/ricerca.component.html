@@ -1,1 +1,6 @@
-<p>ricerca works!</p>
+<div *ngIf="pagina == 'ricerca'">
+    <h3>Ricerca</h3>
+    <input (keyup)="risultati()" type="text" id="barraRicerca">
+    <br>
+    <button (click)="togglePaginaRicerca()">Esci</button>
+</div>

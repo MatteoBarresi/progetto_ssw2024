@@ -1,8 +1,10 @@
-<h3>{{title}}</h3>
-
 <div *ngIf="pagina=='iniziale'">
+    <h3>Gestione Biblioteca</h3>
     <button (click)="cambioPagina('inserimento')"> inserimento </button>    
+    <br>
+    <button (click)="cambioPagina('ricerca')"> ricerca </button>  
 </div>
 <app-inserimento [pagina]="pagina" (eventoCambio) = "cambioPagina($event)"></app-inserimento>
+<app-ricerca [pagina]="pagina" (eventoCambio) = "cambioPagina($event)"></app-ricerca>
 
 

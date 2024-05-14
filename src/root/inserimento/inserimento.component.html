@@ -1,4 +1,5 @@
 <div *ngIf="pagina == 'inserimento'">
+    <h3>Inserimento</h3>
     <div id="campi">
         Autore
         <input type ="text" id ="campoAutore">
@@ -11,5 +12,6 @@
     </div> 
     <br/>
     <button (click) = "send()">Inserisci</button>
+    <br>
     <button (click)="togglePaginaInserisci()">Esci</button>
 </div>
