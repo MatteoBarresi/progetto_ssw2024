@@ -33,14 +33,11 @@ export class InserimentoComponent implements OnInit {
 
   getCollection(){
     //fa la get dal db remoto (ottiene stringa JSON)
-    //crea oggetti libro
-    //li mette in una variabile che è un oggetto di tipo archivo--> serve a fare i controlli
-
+    //crea oggetti Libro
+    //li mette in un un oggetto Archivo--> serve a fare i controlli
     this.as.getData().subscribe(
       {
         next: (x:AjaxResponse<any>)=> {
-
-          //console.log(x.response);
           const collezione = (JSON.parse(x.response));
           collezione.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],item['posizione'],item['nominativo'])))
           console.log("archivio appena ottenuto " + this.archivio.collezione);
@@ -55,38 +52,29 @@ export class InserimentoComponent implements OnInit {
   checkCampiVuoti(campi:HTMLCollectionOf<HTMLInputElement>): boolean{
     //controlla che i campi autore, titolo e posizione non siano vuoti
     if(campi['campoAutore'].value && campi['campoTitolo'].value && campi['campoPosizione'].value !== '')
-      return true; //console.log('campi validi');
-    else return false; //console.log('campi non validi');
-
-
-    //alternativa
-    //const foo = campi[].value, campi[].value, ecc.
-    //foo.every((item)=> {item !== ''})
+      return true; 
+    else return false; 
   }
   
 
-  checkDuplicati(libro:Libro){//riceve il libro appena creato
-
-    this.archivio;
-    
-    //controlla che l'item non ci sia già (o che la posizione non sia occupata)
+  checkPosizione(libro:Libro): boolean{//riceve il libro appena creato
+    //controlla che la posizione non sia occupata
+    return this.archivio.collezione.every((item)=> item.posizione !== libro.posizione);    
   }
 
-  send(){ //check duplicati -> aggiorna (aggiunge Libro all'oggetto) -> send
+  send(){ //crea libro -> check duplicati -> aggiorna (aggiunge Libro all'oggetto) -> send
     
     //this.getCollection(); //se messa qui, dà problemi
     
-    //check duplicati
-
+    
     //fare try-catch
     let campi : HTMLCollectionOf<HTMLInputElement>;
-    let valori: string[] = [];
+    //let valori: string[] = [];
     campi = document.getElementById("campi").getElementsByTagName("input"); //in caso cambi il numero di campi, non li metto uno a uno
     //console.log(campi);
     if(!this.checkCampiVuoti(campi))
     {
-      console.log('check FALLITO');
-      //scrivere errore su pagina e non continuare
+      console.log('Riempire i campi obbligatori');
     }else{
       
       //Array.from(campi).map((item)=> valori.push(item.value)); //mette le stringhe in un array[]<string>
@@ -100,22 +88,23 @@ export class InserimentoComponent implements OnInit {
         campi['campoNominativo'].value
         );
       
-      //checkDuplicati(libro);
+      if(this.checkPosizione(libro)){
+        this.archivio.add(libro);
       
-      this.archivio.add(libro);
-      
-      console.log("archivio aggiornato " + this.archivio.collezione);
-      
-      //trasforma oggetto in stringa e fa la set
-      this.as.setData(JSON.stringify(this.archivio.collezione)).subscribe({
-        next: (res: AjaxResponse<any>)=> {
-          console.log(res.response); 
-          console.log("stringa mandata " + JSON.stringify(this.archivio.collezione));
-        },
-        error: (err: AjaxError)=> console.log(err)
-      })
+        console.log("archivio aggiornato " + this.archivio.collezione);
+        
+        //trasforma oggetto in stringa e fa la set
+        this.as.setData(JSON.stringify(this.archivio.collezione)).subscribe({
+          next: (res: AjaxResponse<any>)=> {
+            console.log(res.response); 
+            console.log("stringa mandata " + JSON.stringify(this.archivio.collezione));
+          },
+          error: (err: AjaxError)=> console.log(err)
+        })
+      }
+      else{
+        console.log("posizione già occupata");
+      }   
     };
- 
   }
-
 }
