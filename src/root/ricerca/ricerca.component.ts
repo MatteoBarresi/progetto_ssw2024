@@ -3,6 +3,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ArchivioService } from '../archivio.service';
 import { AjaxResponse } from 'rxjs/ajax';
 import { Archivio } from '../archivio';
+import { Libro } from '../libro';
 
 @Component({
   selector: 'app-ricerca',
@@ -16,9 +17,10 @@ export class RicercaComponent {
   @Input() pagina: string;
   @Input() archivio: Archivio;
   @Output() eventoCambio = new EventEmitter<string>();
-
   
-  constructor(private as : ArchivioService){}
+  corrispondenza: Libro;
+  
+  constructor(/*private as : ArchivioService*/){}
 
   togglePaginaRicerca(){
     this.pagina = 'iniziale';
@@ -32,10 +34,14 @@ export class RicercaComponent {
     const riscontro = document.getElementById("riscontro");
     if (query.value != ""){
       let result = this.archivio.ricerca(query.value);
-      if(result.length==1)
+      if(result.length==1){
         //corrisponde solo un libro
-        riscontro.innerHTML = "autore: " + result[0].autore + "<br> titolo: " + result[0].titolo;
+        //passa l'oggetto a scheda
+        this.corrispondenza = result[0];
+        this.pagina='scheda';
+        //riscontro.innerHTML = "autore: " + result[0].autore + "<br> titolo: " + result[0].titolo;
         //console.log("autore: " + result[0].autore + "<br> titolo: " + result[0].titolo);
+      }
       else if(result.length>1)
         riscontro.innerHTML = "troppi risultati (" + result.length +")";
       //console.log("troppi risultati (" + result.length +")");
