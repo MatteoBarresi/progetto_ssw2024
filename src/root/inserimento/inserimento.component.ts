@@ -2,7 +2,7 @@ import { CommonModule, provideImageKitLoader } from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ArchivioService } from '../archivio.service';
 import { Libro } from '../libro';
-import { AjaxResponse } from 'rxjs/ajax';
+import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 import { Archivio } from '../archivio';
 
 
@@ -30,6 +30,23 @@ export class InserimentoComponent implements OnInit {
     this.eventoCambio.emit(this.pagina)
   }
 
+  provaGet(){
+    this.archivio = new Archivio([]);
+    this.as.getData().subscribe(
+      {
+        next: (x:AjaxResponse<any>)=> {
+
+          console.log(x.response);
+          let foo = (JSON.parse(x.response));
+          foo.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],"","")))
+          console.log(this.archivio);
+        },
+        error: (err) =>
+          console.error('Observer got an error: ' + JSON.stringify(err))
+      }
+    )
+  }
+
   checkCampiVuoti(campi:HTMLCollectionOf<HTMLInputElement>): boolean{
     //controlla che i campi autore, titolo e posizione non siano vuoti
     if(campi['campoAutore'].value && campi['campoTitolo'].value && campi['campoPosizione'].value !== '')
@@ -53,7 +70,8 @@ export class InserimentoComponent implements OnInit {
     //controlla che l'item non ci sia già (o che la posizione non sia occupata)
   }
 
-  send(){
+  send(){ //scarica archivio - check - aggiorna - send
+    //fare try-catch
     let campi : HTMLCollectionOf<HTMLInputElement>;
     let valori: string[] = [];
     campi = document.getElementById("campi").getElementsByTagName("input"); //in caso cambi il numero di campi, non li metto uno a uno
@@ -70,29 +88,18 @@ export class InserimentoComponent implements OnInit {
       
       //va istanziato prima
       this.archivio = new Archivio([libro]);
-      console.log(this.archivio);
+      console.log(this.archivio.collezione);
       //checkDuplicati(libro);
   
       
       //valori.map((item)=> console.log(JSON.stringify(valori)));
       
-      //this.as.setData(JSON.stringify(valori))
+      this.as.setData(JSON.stringify(this.archivio.collezione)).subscribe({
+        next: (res: AjaxResponse<any>)=> console.log(res.response),
+        error: (err: AjaxError)=> console.log(err)
+      })
     }
     
-  }
-  provaGet(){
-    this.as.getData().subscribe(
-      {
-        next: (x:AjaxResponse<any>)=> {
-
-          console.log(x.response);
-          let foo = (JSON.parse(x.response));
-          foo.map((item)=>console.log(item));
-        },
-        error: (err) =>
-          console.error('Observer got an error: ' + JSON.stringify(err))
-      }
-    )
   }
 
 }
