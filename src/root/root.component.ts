@@ -18,13 +18,34 @@ import { RicercaComponent } from './ricerca/ricerca.component';
 })
 export class RootComponent implements OnInit{
   pagina: string='iniziale';
+  archivio : Archivio = new Archivio([]);
 
   cambioPagina(stato:string){
     this.pagina = stato
   }
 
-  
-  constructor(private archiveService: ArchivioService) {}
+  getCollection(){
+    //fa la get dal db remoto (ottiene stringa JSON)
+    //crea oggetti Libro
+    //li mette in un un oggetto Archivo--> serve a fare i controlli
+    this.as.getData().subscribe(
+      {
+        next: (x:AjaxResponse<any>)=> {
+          const collezione = (JSON.parse(x.response));
+          collezione.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],item['posizione'],"")))
+          console.log("archivio appena ottenuto " + this.archivio.collezione);
+          this.archivio.collezione.map((item)=> console.log(item));
+        },
+        error: (err) =>
+          console.error('Observer got an error: ' + JSON.stringify(err))
+      }
+    )
+  }
 
-  ngOnInit(){}
+  
+  constructor(private as: ArchivioService) {}
+
+  ngOnInit(){this.getCollection()} //archivio scaricato una volta sola, quando si carica la pagina
+  //questo evita anche problemi di timing (es getCollection viene eseguita dopo la set (in inserimento.ts), anche se messa prima nel codice)
+  //inoltre aggiorno this.archivio per sapere lo stato attuale dell'archivio e fare set successivi
 }

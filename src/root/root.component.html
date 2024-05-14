@@ -4,7 +4,7 @@
     <br>
     <button (click)="cambioPagina('ricerca')"> ricerca </button>  
 </div>
-<app-inserimento [pagina]="pagina" (eventoCambio) = "cambioPagina($event)"></app-inserimento>
+<app-inserimento [pagina]="pagina" [archivio]="archivio" (eventoCambio) = "cambioPagina($event)"></app-inserimento>
 <app-ricerca [pagina]="pagina" (eventoCambio) = "cambioPagina($event)"></app-ricerca>
 
 

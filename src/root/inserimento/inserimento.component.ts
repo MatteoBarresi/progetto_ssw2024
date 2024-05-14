@@ -17,36 +17,18 @@ import { Archivio } from '../archivio';
 export class InserimentoComponent implements OnInit {
   
   @Input() pagina: string;
+  @Input() archivio: Archivio;
   @Output() eventoCambio = new EventEmitter<string>();
 
-  archivio : Archivio = new Archivio([]);
 
   constructor(private as : ArchivioService){}
-  ngOnInit() {this.getCollection()} //archivio scaricato una volta sola, quando si carica la pagina
-  //questo evita anche problemi di timing (es getCollection viene eseguita dopo la set, anche se messa prima nel codice)
+  ngOnInit() {} 
   
   togglePaginaInserisci(){
     this.pagina = 'iniziale';
     this.eventoCambio.emit(this.pagina)
   }
 
-  getCollection(){
-    //fa la get dal db remoto (ottiene stringa JSON)
-    //crea oggetti Libro
-    //li mette in un un oggetto Archivo--> serve a fare i controlli
-    this.as.getData().subscribe(
-      {
-        next: (x:AjaxResponse<any>)=> {
-          const collezione = (JSON.parse(x.response));
-          collezione.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],item['posizione'],"")))
-          console.log("archivio appena ottenuto " + this.archivio.collezione);
-          this.archivio.collezione.map((item)=> console.log(item));
-        },
-        error: (err) =>
-          console.error('Observer got an error: ' + JSON.stringify(err))
-      }
-    )
-  }
 
   checkCampiVuoti(campi:HTMLCollectionOf<HTMLInputElement>): boolean{
     return Array.from(campi).every((item)=>item.value !=='');
@@ -59,8 +41,6 @@ export class InserimentoComponent implements OnInit {
   }
 
   send(){ //crea libro -> check duplicati -> aggiorna (aggiunge Libro all'oggetto) -> send
-    
-    //this.getCollection(); //se messa qui, dà problemi
     
     
     //fare try-catch
@@ -81,7 +61,7 @@ export class InserimentoComponent implements OnInit {
         campi['campoAutore'].value, 
         campi['campoTitolo'].value, 
         campi['campoPosizione'].value, 
-        campi['campoNominativo'].value
+        ""
         );
       
       if(this.checkPosizione(libro)){

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ArchivioService } from '../archivio.service';
+import { AjaxResponse } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-ricerca',
@@ -22,12 +23,27 @@ export class RicercaComponent {
     this.eventoCambio.emit(this.pagina)
   }
 
-  risultati(){
-    let query = document.getElementById("barraRicerca") as HTMLInputElement;
-    console.log(query.value);
+  getCollection(){
+    this.as.getData().subscribe(
+      {
+        next: (x:AjaxResponse<any>)=> {
+          const collezione = (JSON.parse(x.response));
+          collezione.map((item)=> console.log(item))
+        },
+        error: (err) =>
+          console.error('Observer got an error: ' + JSON.stringify(err))
+      }
+    )
 
+  }
+
+  risultati(){
+    const query = document.getElementById("barraRicerca") as HTMLInputElement;
+    console.log(query.value);
+    this.getCollection();
     
 
+  
   }
 
 }
