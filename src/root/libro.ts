@@ -2,12 +2,12 @@ export class Libro {
     autore:string;
     titolo:string;
     posizione:string;
-    nominativo:string;
+    nominativo:string|undefined;
 
-    constructor(autore:string, titolo:string, posizione:string,nominativo:string){
+    constructor(autore:string, titolo:string, posizione:string,nominativo:string|undefined){
         this.autore = autore;
         this.titolo = titolo;
-        this.posizione = posizione; //deve essere sempre diversa (si può inserire un controllo)
+        this.posizione = posizione; 
         this.nominativo = nominativo;
       }
 }

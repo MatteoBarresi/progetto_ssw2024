@@ -9,7 +9,7 @@ import { ajax, AjaxResponse, AjaxRequest, AjaxError } from 'rxjs/ajax';
   providedIn: 'root'
 })
 export class ArchivioService {
-  key:string = 'cda4fc29'; //key db remoto
+  key:string = "d617d54f"; //key db remoto
   base:string = 'https://eu-central-1.aws.data.mongodb-api.com/app/kvaas-giwjg/endpoint'; //url db remoto
   
   constructor() { }
