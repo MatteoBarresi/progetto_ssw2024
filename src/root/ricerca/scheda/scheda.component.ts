@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Libro } from '../../libro';
 import { CommonModule } from '@angular/common';
 import { ArchivioService } from '../../archivio.service';
@@ -14,6 +14,11 @@ import { ArchivioService } from '../../archivio.service';
 export class SchedaComponent {
   @Input() corrispondenza:Libro;
   @Input() pagina: string;
-
+  @Output() eventoCambio = new EventEmitter<string>();
+  
+  togglePaginaScheda(){
+    this.pagina = 'iniziale';
+    this.eventoCambio.emit(this.pagina)
+  }
 
 }

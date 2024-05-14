@@ -20,7 +20,7 @@ export class RootComponent implements OnInit{
   pagina: string='iniziale';
   archivio : Archivio = new Archivio([]);
 
-  cambioPagina(stato:string){
+  public cambioPagina(stato:string){
     this.pagina = stato
   }
 

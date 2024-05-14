@@ -4,11 +4,12 @@ import { ArchivioService } from '../archivio.service';
 import { AjaxResponse } from 'rxjs/ajax';
 import { Archivio } from '../archivio';
 import { Libro } from '../libro';
+import { SchedaComponent } from './scheda/scheda.component';
 
 @Component({
   selector: 'app-ricerca',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,SchedaComponent],
   providers:[ArchivioService],
   templateUrl: './ricerca.component.html',
   styleUrl: './ricerca.component.css'
@@ -27,7 +28,6 @@ export class RicercaComponent {
     this.eventoCambio.emit(this.pagina)
   }
 
-  
   risultati(){
     const query = document.getElementById("barraRicerca") as HTMLInputElement;
     console.log(query.value);
