@@ -29,35 +29,38 @@ export class InserimentoComponent implements OnInit {
     this.eventoCambio.emit(this.pagina)
   }
 
-
   checkCampiVuoti(campi:HTMLCollectionOf<HTMLInputElement>): boolean{
     return Array.from(campi).every((item)=>item.value !=='');
-  }
-  
+  }  
 
   checkPosizione(libro:Libro): boolean{//riceve il libro appena creato
     //controlla che la posizione non sia occupata
     return this.archivio.collezione.every((item)=> item.posizione !== libro.posizione);    
   }
 
+  wellFormed(input:string): string{
+    //non si possono inserire campi con più spazi tra due parole
+    return input.trim().split(" ").filter((item)=> item != "").join(" ");
+  }
+
   send(){ //crea libro -> check duplicati -> aggiorna (aggiunge Libro all'oggetto) -> send
-    
-    //fare try-catch
+    let avvisi = document.getElementById("avvisi");
     let campi : HTMLCollectionOf<HTMLInputElement>;
-    campi = document.getElementById("campi").getElementsByTagName("input"); //in caso cambi il numero di campi, non li metto uno a uno
+    campi = document.getElementById("campi").getElementsByTagName("input"); //se in altre versioni cambiasse il numero di campi, non li metto uno a uno
     if(!this.checkCampiVuoti(campi))
     {
+      avvisi.innerHTML = "Riempire i campi vuoti"; 
       console.log('Riempire i campi vuoti');
     }else{
 
       //crea libro
       const libro = new Libro(
-        campi['campoAutore'].value, 
-        campi['campoTitolo'].value, 
-        campi['campoPosizione'].value, 
+        this.wellFormed(campi['campoAutore'].value),
+        this.wellFormed(campi['campoTitolo'].value), 
+        this.wellFormed(campi['campoPosizione'].value), //non ha un pattern obbligatorio
         ""
         );
-      
+
       if(this.checkPosizione(libro)){
         this.archivio.add(libro);
       
@@ -65,11 +68,12 @@ export class InserimentoComponent implements OnInit {
         
         //trasforma oggetto in stringa + POST
         this.as.setData(this.archivio.collezione);
+        this.togglePaginaInserisci();
       }
       else{
+        avvisi.innerHTML = "Posizione già occupata"; 
         console.log("posizione già occupata");
       }   
     };
-    this.togglePaginaInserisci();
   }
 }

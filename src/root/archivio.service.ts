@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Archivio } from './archivio';
 import { Libro } from './libro';
 import { Observable } from 'rxjs';
-import { ajax, AjaxResponse, AjaxRequest, AjaxError } from 'rxjs/ajax';
+import { ajax, AjaxResponse, AjaxError } from 'rxjs/ajax';
 
 
 @Injectable({
@@ -25,7 +24,8 @@ export class ArchivioService {
       });
     }
 
-    private set(jsonstring :string): Observable<AjaxResponse<any>>{
+    //lo lascio per fare subscribe diverse 
+    private set(jsonstring :string): Observable<AjaxResponse<any>>{ 
       return ajax({
         method: 'POST',
         url: this.base + '/set' + '?key=' + this.key,
@@ -34,6 +34,7 @@ export class ArchivioService {
       });
     }
 
+    //subscribe che va bene in tutti i casi usati
     public setData(arr: Libro[]){
       this.set(JSON.stringify(arr)).subscribe({
         next: (res: AjaxResponse<any>)=> {

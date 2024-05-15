@@ -3,7 +3,6 @@ import { Libro } from '../../libro';
 import { CommonModule } from '@angular/common';
 import { ArchivioService } from '../../archivio.service';
 import { Archivio } from '../../archivio';
-import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-scheda',

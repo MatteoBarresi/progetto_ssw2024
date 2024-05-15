@@ -1,6 +1,5 @@
 import { Component, OnInit, VERSION } from '@angular/core';
 import {CommonModule } from '@angular/common';
-//import { bootstrapApplication } from '@angular/platform-browser';
 import { InserimentoComponent } from './inserimento/inserimento.component';
 import { ArchivioService } from './archivio.service';
 import { AjaxResponse } from 'rxjs/ajax';
