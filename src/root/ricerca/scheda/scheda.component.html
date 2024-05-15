@@ -6,6 +6,14 @@
         Autore: {{corrispondenza.autore}}
         <br>
         Titolo: {{corrispondenza.titolo}}
+        <!--app-gestioneRecord></app-gestioneRecord-->
+        <div *ngIf="corrispondenza.nominativo === '' ">
+            Prestito
+            <br>
+            Nominativo <input id="nome" (keyup.enter) = "prestito()" type="text">
+            <br>
+            <button (click)="rimuovi()">Rimuovi</button>
+        </div>
     </div>
     <br>
     <button (click)="togglePaginaScheda()">Esci</button>

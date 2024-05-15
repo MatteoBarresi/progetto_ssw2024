@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Libro } from '../../libro';
 import { CommonModule } from '@angular/common';
 import { ArchivioService } from '../../archivio.service';
+import { Archivio } from '../../archivio';
+import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-scheda',
@@ -13,8 +15,11 @@ import { ArchivioService } from '../../archivio.service';
 })
 export class SchedaComponent {
   @Input() corrispondenza:Libro;
+  @Input() archivio:Archivio;
   @Input() pagina: string;
   @Output() eventoCambio = new EventEmitter<string>();
+  
+  constructor(private as : ArchivioService){}
   
   togglePaginaScheda(){
     this.pagina = 'iniziale';
@@ -22,6 +27,23 @@ export class SchedaComponent {
   }
   show(){
     console.log(this.corrispondenza)
+  }
+
+  prestito(){
+    //aggiorna libro e fa la post
+    const nominativo=document.getElementById("nome") as HTMLInputElement;
+    this.archivio.aggiorna(this.corrispondenza, nominativo.value);
+
+    this.as.setData(JSON.stringify(this.archivio.collezione)).subscribe({
+      next: (res:AjaxResponse<any>)=> {console.log(res.response);
+        console.log("stringa mandata " + JSON.stringify(this.archivio.collezione));
+      }, 
+      error: (err: AjaxError)=> console.log(err)
+    });
+    this.togglePaginaScheda();
+  }
+  rimuovi(){
+    //toglie il libro da this.archivio e fa la post
   }
 
 }

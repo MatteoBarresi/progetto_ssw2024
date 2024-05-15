@@ -28,5 +28,12 @@ export class Archivio {
         });
         return result;
       }
+
+      aggiorna(libro:Libro, nominativo:string){
+        const lend = this.collezione.find((item)=> item===libro);
+        lend.nominativo= nominativo;
+       // console.log(this.collezione);
+      }
+
       
 }

@@ -32,7 +32,7 @@ export class RootComponent implements OnInit{
       {
         next: (x:AjaxResponse<any>)=> {
           const collezione = (JSON.parse(x.response));
-          collezione.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],item['posizione'],"")))
+          collezione.map((item)=> this.archivio.add(new Libro(item['autore'],item['titolo'],item['posizione'],item['nominativo'])))
           console.log("archivio appena ottenuto " + this.archivio.collezione);
           this.archivio.collezione.map((item)=> console.log(item));
         },
