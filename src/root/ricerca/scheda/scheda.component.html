@@ -1,5 +1,14 @@
 <div *ngIf="pagina=='scheda'">
-    <p>scheda works!</p>
-    <div id="riscontro"></div>
+    <h3>Scheda Libro</h3>
+    <div id="riscontro">
+        Posizione: {{corrispondenza.posizione}}
+        <br>
+        Autore: {{corrispondenza.autore}}
+        <br>
+        Titolo: {{corrispondenza.titolo}}
+    </div>
+    <br>
     <button (click)="togglePaginaScheda()">Esci</button>
+    <br>
+    <button (click)="show()">log</button>
 </div>

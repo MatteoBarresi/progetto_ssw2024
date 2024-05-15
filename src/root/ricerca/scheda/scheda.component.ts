@@ -20,5 +20,8 @@ export class SchedaComponent {
     this.pagina = 'iniziale';
     this.eventoCambio.emit(this.pagina)
   }
+  show(){
+    console.log(this.corrispondenza)
+  }
 
 }
