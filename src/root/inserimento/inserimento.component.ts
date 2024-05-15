@@ -42,19 +42,13 @@ export class InserimentoComponent implements OnInit {
 
   send(){ //crea libro -> check duplicati -> aggiorna (aggiunge Libro all'oggetto) -> send
     
-    
     //fare try-catch
     let campi : HTMLCollectionOf<HTMLInputElement>;
-    //let valori: string[] = [];
     campi = document.getElementById("campi").getElementsByTagName("input"); //in caso cambi il numero di campi, non li metto uno a uno
-    //console.log(campi);
     if(!this.checkCampiVuoti(campi))
     {
       console.log('Riempire i campi vuoti');
     }else{
-      
-      //Array.from(campi).map((item)=> valori.push(item.value)); //mette le stringhe in un array[]<string>
-      //new Libro(valori[0],valori[1],valori[2],valori[3])
 
       //crea libro
       const libro = new Libro(
@@ -69,18 +63,13 @@ export class InserimentoComponent implements OnInit {
       
         console.log("archivio aggiornato " + this.archivio.collezione);
         
-        //trasforma oggetto in stringa e fa la set
-        this.as.setData(JSON.stringify(this.archivio.collezione)).subscribe({
-          next: (res: AjaxResponse<any>)=> {
-            console.log(res.response); 
-            console.log("stringa mandata " + JSON.stringify(this.archivio.collezione));
-          },
-          error: (err: AjaxError)=> console.log(err)
-        })
+        //trasforma oggetto in stringa + POST
+        this.as.setData(this.archivio.collezione);
       }
       else{
         console.log("posizione già occupata");
       }   
     };
+    this.togglePaginaInserisci();
   }
 }

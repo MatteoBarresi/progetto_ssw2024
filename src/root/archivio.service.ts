@@ -23,16 +23,26 @@ export class ArchivioService {
         url: this.base + '/get' + '?key=' + this.key,
         crossDomain: true,
       });
-
     }
 
-    public setData(jsonstring :string): Observable<AjaxResponse<any>>{
+    private set(jsonstring :string): Observable<AjaxResponse<any>>{
       return ajax({
         method: 'POST',
         url: this.base + '/set' + '?key=' + this.key,
         crossDomain: true,
         body: jsonstring
       });
+    }
+
+    public setData(arr: Libro[]){
+      this.set(JSON.stringify(arr)).subscribe({
+        next: (res: AjaxResponse<any>)=> {
+          console.log(res.response); 
+          console.log("stringa mandata " + JSON.stringify(arr));
+        },
+        error: (err: AjaxError)=> console.log(err)
+      })
+
     }
 
 }

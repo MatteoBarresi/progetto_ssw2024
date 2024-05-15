@@ -1,4 +1,3 @@
-import { ParseSourceFile } from "@angular/compiler";
 import{Libro} from "./libro";
 export class Archivio {
     
@@ -14,25 +13,24 @@ export class Archivio {
       }
       public ricerca(query:string): Array<Libro>{
         const result = this.collezione.filter((libro)=>{
-          //const attrCheck = [value['autore'], value['titolo']];
           for (let x in libro){
             if(x=='titolo' || x=='autore'){
               if (libro[x].split(" ").join("").toLowerCase().includes(query.toLowerCase())) //per unire stringhe con stringhe separate da spazi
-              return libro; //include l'oggetto Libro nell'array di risultati
+              return libro; //mette l'oggetto Libro nell'array di risultati
             }
           }
-/*          attrCheck.map((attr)=>{
-            if (attr.split(" ").join("").toLowerCase().includes(query.toLowerCase())) //per unire stringhe con stringhe separate da spazi
-              return value; //include l'oggetto Libro nell'array di risultati
-          })*/
         });
         return result;
       }
 
-      aggiorna(libro:Libro, nominativo:string){
+      aggiornaPrestito(libro:Libro, nominativo:string){
         const lend = this.collezione.find((item)=> item===libro);
         lend.nominativo= nominativo;
-       // console.log(this.collezione);
+      }
+
+      rimuovi(libro:Libro){
+        const posizione = this.collezione.indexOf(libro);
+        this.collezione.splice(posizione,1);
       }
 
       

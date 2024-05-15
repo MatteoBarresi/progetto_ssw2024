@@ -25,25 +25,26 @@ export class SchedaComponent {
     this.pagina = 'iniziale';
     this.eventoCambio.emit(this.pagina)
   }
-  show(){
-    console.log(this.corrispondenza)
+
+  aggiornaStato(){
+    this.as.setData(this.archivio.collezione);
+    this.togglePaginaScheda();
   }
 
   prestito(){
     //aggiorna libro e fa la post
     const nominativo=document.getElementById("nome") as HTMLInputElement;
-    this.archivio.aggiorna(this.corrispondenza, nominativo.value);
-
-    this.as.setData(JSON.stringify(this.archivio.collezione)).subscribe({
-      next: (res:AjaxResponse<any>)=> {console.log(res.response);
-        console.log("stringa mandata " + JSON.stringify(this.archivio.collezione));
-      }, 
-      error: (err: AjaxError)=> console.log(err)
-    });
-    this.togglePaginaScheda();
+    this.archivio.aggiornaPrestito(this.corrispondenza, nominativo.value);
+    this.aggiornaStato();    
   }
   rimuovi(){
     //toglie il libro da this.archivio e fa la post
+    this.archivio.rimuovi(this.corrispondenza);
+    this.aggiornaStato();
+  }
+  restituzione(){
+    this.archivio.aggiornaPrestito(this.corrispondenza, '');
+    this.aggiornaStato();
   }
 
 }

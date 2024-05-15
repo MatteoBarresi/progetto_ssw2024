@@ -6,7 +6,6 @@
         Autore: {{corrispondenza.autore}}
         <br>
         Titolo: {{corrispondenza.titolo}}
-        <!--app-gestioneRecord></app-gestioneRecord-->
         <div *ngIf="corrispondenza.nominativo === '' ">
             Prestito
             <br>
@@ -14,9 +13,12 @@
             <br>
             <button (click)="rimuovi()">Rimuovi</button>
         </div>
+        <div *ngIf="corrispondenza.nominativo !== '' ">
+            In prestito a: {{corrispondenza.nominativo}}
+            <br>
+            <button (click)="restituzione()">Restituisci</button>
+        </div>
     </div>
     <br>
     <button (click)="togglePaginaScheda()">Esci</button>
-    <br>
-    <button (click)="show()">log</button>
 </div>
