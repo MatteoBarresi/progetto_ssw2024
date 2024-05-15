@@ -18,7 +18,7 @@ export class RicercaComponent {
   @Input() pagina: string;
   @Input() archivio: Archivio;
   @Output() eventoCambio = new EventEmitter<string>();
-  
+
   corrispondenza: Libro;
   
   constructor(/*private as : ArchivioService*/){}
@@ -27,6 +27,7 @@ export class RicercaComponent {
     this.pagina = 'iniziale';
     this.eventoCambio.emit(this.pagina)
   }
+
 
   risultati(){
     const query = document.getElementById("barraRicerca") as HTMLInputElement;

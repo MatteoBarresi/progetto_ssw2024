@@ -6,5 +6,4 @@
     <br>
     <button (click)="togglePaginaRicerca()">Esci</button>
 </div>
-<!--app-scheda [pagina]="pagina" (eventoCambio) = "cambioPagina($event)"></app-scheda-->
-<app-scheda [pagina]="pagina"></app-scheda>
+<app-scheda [pagina]="pagina" (eventoCambio) = "togglePaginaRicerca()"></app-scheda>
