@@ -16,7 +16,7 @@ export class ArchivioService {
   //funzioni per interagire con il db remoto: set e get (Observable)
 
   //ottiene tutta la collezione dal db remoto
-    public getData() : Observable<AjaxResponse<any>>{ //parsare ulteriormente??
+    public getData() : Observable<AjaxResponse<any>>{
       return ajax({
         method: 'GET',
         url: this.base + '/get' + '?key=' + this.key,

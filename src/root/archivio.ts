@@ -7,7 +7,6 @@ export class Archivio {
         this.collezione = collezione; //array di oggetti libro
       }
 
-      //metodi di ricerca ecc
       public add(libro: Libro){
         this.collezione.push(libro);
       }

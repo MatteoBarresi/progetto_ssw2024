@@ -2,7 +2,6 @@ import { CommonModule} from '@angular/common';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ArchivioService } from '../archivio.service';
 import { Libro } from '../libro';
-import { AjaxError, AjaxResponse } from 'rxjs/ajax';
 import { Archivio } from '../archivio';
 
 

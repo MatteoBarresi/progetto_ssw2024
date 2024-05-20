@@ -1,4 +1,4 @@
-import { Component, OnInit, VERSION } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {CommonModule } from '@angular/common';
 import { InserimentoComponent } from './inserimento/inserimento.component';
 import { ArchivioService } from './archivio.service';
@@ -40,7 +40,6 @@ export class RootComponent implements OnInit{
       }
     )
   }
-
   
   constructor(private as: ArchivioService) {}
 
