@@ -30,7 +30,7 @@ export class RicercaComponent {
 
   risultati(){
     const query = document.getElementById("barraRicerca") as HTMLInputElement;
-    console.log(query.value);
+    //console.log(query.value);
     const riscontro = document.getElementById("riscontro");
     if (query.value != ""){
       let result = this.archivio.ricerca(query.value);
